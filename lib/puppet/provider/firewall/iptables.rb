@@ -68,6 +68,7 @@ Puppet::Type.type(:firewall).provide :iptables, :parent => Puppet::Provider::Fir
     :uid => "-m owner --uid-owner",
     :pkttype => "-m pkttype --pkt-type",
     :isfragment => "-f",
+    :bridge => "-m physdev",
   }
 
   # Create property methods dynamically
@@ -86,7 +87,7 @@ Puppet::Type.type(:firewall).provide :iptables, :parent => Puppet::Provider::Fir
   # changes between puppet runs, the changed rules will be re-applied again.
   # This order can be determined by going through iptables source code or just tweaking and trying manually
   @resource_list = [:table, :source, :destination, :iniface, :outiface,
-    :proto, :isfragment, :tcp_flags, :gid, :uid, :sport, :dport, :port, :socket, :pkttype, :name, :state, :icmp, :limit, :burst,
+    :proto, :isfragment, :tcp_flags, :gid, :uid, :sport, :dport, :port, :socket, :pkttype, :name, :state, :bridge, :icmp, :limit, :burst,
     :jump, :todest, :tosource, :toports, :log_prefix, :log_level, :reject, :set_mark]
 
   def insert
